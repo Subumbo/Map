@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+	
+	<asset id="main" src="Main.swf" />
+	
+	
+	<content>
+		<modules>
+			<module id="medina">
+				<asset id="medina_map" src="images/thumb.jpg" />
+				<hotspots>
+					<hotspot x="0" y="0" type="0">
+						<tooltip type="0" position="tr">
+							<label><![CDATA[]]></label>
+							<asset id="medina_thumb" src="images/thumb.jpg" />
+						</tooltip>
+					</hotspot>
+					<hotspot x="0" y="0" type="1">
+						<overlay>
+							<title><![CDATA[]]></title>
+							<description><![CDATA[]]></description>
+							<address><![CDATA[]]></address>
+							<link><![CDATA[http://www.ihg.com]]></link>
+							<slide_show>
+								<asset id="" src="" />
+								<asset id="" src="" />
+								<asset id="" src="" />
+							</slide_show>
+						</overlay>
+						<tooltip type="1" position="tr">
+							<label><![CDATA[]]></label>
+							<asset id="medina_thumb1" src="images/thumb.jpg" />
+						</tooltip>
+					</hotspot>
+					<hotspot x="0" y="0" type="2">
+						<overlay>
+							<title><![CDATA[]]></title>
+							<description><![CDATA[]]></description>
+							<slide_show>
+								<asset id="" src="" />
+								<asset id="" src="" />
+								<asset id="" src="" />
+							</slide_show>
+						</overlay>
+						<tooltip type="1" position="tr">
+							<label><![CDATA[]]></label>
+							<asset id="medina_thumb" src="images/thumb.jpg" />
+						</tooltip>
+					</hotspot>
+				</hotspots>
+			</module>
+		</modules>
+	</content>
+	
+	
+</data>
