@@ -3,6 +3,7 @@ package com.ogilvy.ihg.map.view.module {
 	import com.ogilvy.ihg.map.model.Lib;
 	import com.ogilvy.ihg.map.model.vo.HotspotVO;
 	import com.ogilvy.ihg.map.model.vo.ModuleVO;
+	import com.ogilvy.ihg.map.view.View;
 	import com.ogilvy.ihg.map.view.hotspot.Hotspot;
 	
 	import flash.display.MovieClip;
@@ -11,14 +12,13 @@ package com.ogilvy.ihg.map.view.module {
 	import org.assetloader.loaders.DisplayObjectLoader;
 	import org.osflash.signals.Signal;
 	
-	public class Module extends Sprite {
+	public class Module extends View {
 		
-		public var hidden:Signal;
 		private var _hotspotsContainer:Sprite;
 		
 		public function Module() {
+			
 			visible = false;	
-			hidden = new Signal();
 			_hotspotsContainer = new Sprite();
 		}
 		
@@ -40,26 +40,6 @@ package com.ogilvy.ihg.map.view.module {
 				_hotspotsContainer.addChild(hotspot);
 			}
 		}
-		
-		public function show():void {
-			TweenMax.to(this, 1, {autoAlpha:1});	
-		}
-		
-		public function hide():void {
-			TweenMax.to(this, 1, {autoAlpha:0, onComplete:hidden.dispatch});
-		}
-		
-		public function set active(val:Boolean):void {
-			if(val) {
-				
-			}else {
-				
-			}
-		}
-		
-		public function destroy():void {
-			hidden.removeAll();
-			hidden = null;
-		}
+
 	}
 }

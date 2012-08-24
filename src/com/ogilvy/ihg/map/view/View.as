@@ -28,7 +28,7 @@ package com.ogilvy.ihg.map.view {
 		}
 		
 		public function hide():void {
-			TweenMax.to(this, .5, {autoAlpha:1, onComplete:_hidden.dispatch});
+			TweenMax.to(this, .5, {autoAlpha:0, onComplete:_hidden.dispatch});
 		}
 		
 		public function set active(val:Boolean):void {

@@ -13,7 +13,7 @@ package com.ogilvy.ihg.map.view {
 		public function Button(asset:MovieClip) {
 			super();
 			_clicked = new Signal();
-			_asset= asset;
+			_asset= asset
 			_asset.bg.gotoAndStop('Init');
 			addChild(_asset);
 			mouseChildren = false;

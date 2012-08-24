@@ -1,14 +1,16 @@
 package com.ogilvy.ihg.map.controller
 {
 	import com.ogilvy.ihg.map.controller.command.BackHomeCommand;
+	import com.ogilvy.ihg.map.controller.command.CloseOverlayCommand;
 	import com.ogilvy.ihg.map.controller.command.HotspotClickedCommand;
-	import com.ogilvy.ihg.map.controller.command.LoadOverlayCommand;
 	import com.ogilvy.ihg.map.controller.command.LoadModuleCommand;
+	import com.ogilvy.ihg.map.controller.command.LoadOverlayCommand;
 	import com.ogilvy.ihg.map.controller.command.StartupCommand;
 	import com.ogilvy.ihg.map.controller.signal.BackHomeSignal;
+	import com.ogilvy.ihg.map.controller.signal.CloseOverlaySignal;
 	import com.ogilvy.ihg.map.controller.signal.HotspotClickedSignal;
-	import com.ogilvy.ihg.map.controller.signal.LoadOverlaySignal;
 	import com.ogilvy.ihg.map.controller.signal.LoadModuleSignal;
+	import com.ogilvy.ihg.map.controller.signal.LoadOverlaySignal;
 	import com.ogilvy.ihg.map.controller.signal.ModuleLoadedSignal;
 	import com.ogilvy.ihg.map.model.ScreenManager;
 	import com.ogilvy.ihg.map.model.StateModel;
@@ -50,6 +52,7 @@ package com.ogilvy.ihg.map.controller
 			signalCommandMap.mapSignalClass(ModuleLoadedSignal, LoadModuleCommand);
 			signalCommandMap.mapSignalClass(BackHomeSignal, BackHomeCommand);
 			signalCommandMap.mapSignalClass(LoadOverlaySignal, LoadOverlayCommand);
+			signalCommandMap.mapSignalClass(CloseOverlaySignal, CloseOverlayCommand);
 			
 			mediatorMap.mapView(Home, HomeMediator);
 			mediatorMap.mapView(Hotspot, HotspotMediator);

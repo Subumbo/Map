@@ -53,8 +53,8 @@ package com.ogilvy.ihg.map.model {
 		public function showOverlay(model:OverlayVO):void {
 			_overlay.data = model;
 			_view.addChild(_overlay);
-			resize(_view.stage.stageWidth, _view.stage.stageHeight);
-			
+			_overlay.show();
+			resize(_view.stage.stageWidth, _view.stage.stageHeight);	
 		}
 		
 		public function hideOverlay():void {

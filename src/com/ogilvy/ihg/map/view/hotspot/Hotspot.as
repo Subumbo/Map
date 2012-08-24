@@ -19,19 +19,24 @@ package com.ogilvy.ihg.map.view.hotspot {
 			super(asset);
 			mouseChildren = false;
 			buttonMode = true;
+			_clicked = new Signal(HotspotVO)
 		}
 		
 		protected override function onRollOver(e:MouseEvent):void{
-		
+			_tooltip.show();
 		}
 		
 		protected override function onRollOut(e:MouseEvent):void{
-			
+			_tooltip.hide();
+		}
+		
+		protected override function onMouseDown(e:MouseEvent):void {
+			_clicked.dispatch(_model);
 		}
 		
 		public function set data(val:HotspotVO):void {
 			
-			_model = val;
+			_model = val;	
 			addChild(_asset);
 			
 			this.x = val.coords.x;
@@ -40,27 +45,6 @@ package com.ogilvy.ihg.map.view.hotspot {
 			_tooltip.mouseEnabled = false;
 			_tooltip.data = val.tooltip;
 			addChild(_tooltip);
-		
-			
-			addEventListener(MouseEvent.ROLL_OVER, onMouse);
-			addEventListener(MouseEvent.MOUSE_DOWN, onMouse);
-			addEventListener(MouseEvent.ROLL_OUT, onMouse);
-		}
-		
-		private function onMouse(e:MouseEvent):void {
-			switch(e.type) {
-				case MouseEvent.MOUSE_DOWN :
-					clicked.dispatch(_model);
-					break;
-					
-				case MouseEvent.ROLL_OVER :
-					_tooltip.show();
-					break;
-				
-				case MouseEvent.ROLL_OUT :
-					_tooltip.hide();
-					break;
-			}
 		}
 	}
 }

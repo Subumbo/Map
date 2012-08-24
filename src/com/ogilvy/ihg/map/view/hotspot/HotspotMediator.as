@@ -14,6 +14,7 @@ package com.ogilvy.ihg.map.view.hotspot {
 		}
 		
 		private function onClicked(vo:HotspotVO):void {
+			trace('MODULE');
 			loadModuleSignal.dispatch(vo);
 		}
 		
