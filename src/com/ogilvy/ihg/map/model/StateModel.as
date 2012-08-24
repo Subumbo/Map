@@ -1,9 +1,6 @@
 package com.ogilvy.ihg.map.model {
-	import com.ogilvy.ihg.map.controller.signal.StateModelUpdatedSignal;
 
 	public class StateModel {
-		
-		[Inject] public var updated:StateModelUpdatedSignal;
 		
 		private const _states:Array = [];
 		private var _currentState:String;
@@ -16,7 +13,6 @@ package com.ogilvy.ihg.map.model {
 		public function set currentState(val:String):void {
 			if(_currentState == val) return;
 			_currentState = val;
-			updated.dispatch();
 		}
 		
 		public function get currentState():String {

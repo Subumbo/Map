@@ -1,16 +1,65 @@
 package com.ogilvy.ihg.map.view.hotspot {
-	import flash.display.Sprite;
+	import com.ogilvy.ihg.map.model.Lib;
+	import com.ogilvy.ihg.map.model.vo.HotspotVO;
+	import com.ogilvy.ihg.map.view.Button;
+	import com.ogilvy.ihg.map.view.tooltip.Tooltip;
 	
-	public class Hotspot extends Sprite {
-		public function Hotspot() {
+	import flash.display.MovieClip;
+	import flash.display.Sprite;
+	import flash.events.MouseEvent;
+	
+	import org.osflash.signals.Signal;
+	
+	public class Hotspot extends Button {
+		
+		private var _tooltip:Tooltip;
+		private var _model:HotspotVO;
+		
+		public function Hotspot(asset:MovieClip) {
+			super(asset);
+			mouseChildren = false;
+			buttonMode = true;
+		}
+		
+		protected override function onRollOver(e:MouseEvent):void{
+		
+		}
+		
+		protected override function onRollOut(e:MouseEvent):void{
 			
 		}
 		
-		public function set data(val:Array):void {
-			if(val.length == 1) {
-				// single spot
-			}else {
-				// multi spot
+		public function set data(val:HotspotVO):void {
+			
+			_model = val;
+			addChild(_asset);
+			
+			this.x = val.coords.x;
+			this.y = val.coords.y;
+			_tooltip = new Tooltip();
+			_tooltip.mouseEnabled = false;
+			_tooltip.data = val.tooltip;
+			addChild(_tooltip);
+		
+			
+			addEventListener(MouseEvent.ROLL_OVER, onMouse);
+			addEventListener(MouseEvent.MOUSE_DOWN, onMouse);
+			addEventListener(MouseEvent.ROLL_OUT, onMouse);
+		}
+		
+		private function onMouse(e:MouseEvent):void {
+			switch(e.type) {
+				case MouseEvent.MOUSE_DOWN :
+					clicked.dispatch(_model);
+					break;
+					
+				case MouseEvent.ROLL_OVER :
+					_tooltip.show();
+					break;
+				
+				case MouseEvent.ROLL_OUT :
+					_tooltip.hide();
+					break;
 			}
 		}
 	}

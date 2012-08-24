@@ -1,6 +1,7 @@
 package com.ogilvy.ihg.map {
 	import com.ogilvy.ihg.map.controller.MicrositeContext;
 	
+	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	
@@ -13,7 +14,8 @@ package com.ogilvy.ihg.map {
 		private var _loader:AssetLoader;
 		
 		
-		public function init(loader:AssetLoader=null):void {
+		public function init(loader:AssetLoader=null):void {			
+			
 			if(!loader) {
 				// running without preloader --> assets need loading
 			}else {

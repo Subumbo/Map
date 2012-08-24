@@ -5,10 +5,13 @@ package shmedia.micro {
 	import flash.display.StageScaleMode;
 	import flash.events.Event;
 	import flash.net.URLRequest;
+	import flash.system.ApplicationDomain;
+	import flash.system.LoaderContext;
 	import flash.utils.Dictionary;
 	
 	import org.assetloader.AssetLoader;
 	import org.assetloader.base.AssetType;
+	import org.assetloader.base.Param;
 	import org.assetloader.core.ILoader;
 	import org.assetloader.signals.ErrorSignal;
 	import org.assetloader.signals.LoaderSignal;
@@ -66,9 +69,27 @@ package shmedia.micro {
 			var xml:XML = XML(data['data']);
 			var list:XMLList = xml..asset;
 			var asset:XML;
+			var url:String;
+			var i:int;
+			var add:Boolean;
 			for each(asset in list) {
-				_loader.add(asset.@id, new URLRequest(asset.@src));
+				url = asset.@src;
+				i = _loader.ids.length;
+				add = true;
+				while( --i > -1 ) {
+					if(_loader.ids[i] == url) {
+						add = false;
+						break;
+					}
+				}
+				
+				
+				if(add) _loader.add(url, new URLRequest(url), "AUTO");
 			}
+			
+			var context:LoaderContext = new LoaderContext();
+			context.applicationDomain = ApplicationDomain.currentDomain;
+			_loader.setParam(Param.LOADER_CONTEXT, context);
 			
 			_loader.onError.addOnce(onErrorAsset);
 			_loader.onComplete.addOnce(assetsLoaded);
@@ -81,7 +102,7 @@ package shmedia.micro {
 		 * The main app is now ready and can be added to stage and initialised.
 		 */		
 		protected function assetsLoaded(signal:LoaderSignal, data:Dictionary):void {
-			var main:Object = _loader.getLoader('main').data;
+			var main:Object = _loader.getLoader('Main.swf').data;
 			main.init(_loader);
 			stage.addChild(main as DisplayObject);
 		}

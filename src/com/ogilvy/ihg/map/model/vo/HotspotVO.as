@@ -10,6 +10,7 @@ package com.ogilvy.ihg.map.model.vo {
 		public var type:int;
 		public var tooltip:TooltipVO;
 		public var overlay:OverlayVO;
+		public var module:ModuleVO;
 		
 	}
 }
