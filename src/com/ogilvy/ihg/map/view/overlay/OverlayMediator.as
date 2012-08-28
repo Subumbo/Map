@@ -9,12 +9,7 @@ package com.ogilvy.ihg.map.view.overlay {
 		[Inject] public var closeOverlaySignal:CloseOverlaySignal;
 		
 		public override function onRegister():void {
-			view.closed.add(closeOverlaySignal.dispatch);
+			view.closed.addOnce(closeOverlaySignal.dispatch);
 		}
-		
-		public override function onRemove():void {
-			view.closed.remove(closeOverlaySignal.dispatch);
-		}
-
 	}
 }

@@ -19,7 +19,7 @@ package com.ogilvy.ihg.map.view.hotspot {
 			super(asset);
 			mouseChildren = false;
 			buttonMode = true;
-			_clicked = new Signal(HotspotVO)
+			_clicked = new Signal(HotspotVO);
 		}
 		
 		protected override function onRollOver(e:MouseEvent):void{

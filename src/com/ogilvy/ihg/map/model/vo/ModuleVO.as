@@ -6,5 +6,6 @@ package com.ogilvy.ihg.map.model.vo {
 		public var id:String;
 		public var hotspots:Array = [];
 		public var map:ILoader;
+		public var owner:HotspotVO;
 	}
 }

@@ -16,8 +16,6 @@ package com.ogilvy.ihg.map.controller
 	import com.ogilvy.ihg.map.model.StateModel;
 	import com.ogilvy.ihg.map.view.backbutton.BackButton;
 	import com.ogilvy.ihg.map.view.backbutton.BackButtonMediator;
-	import com.ogilvy.ihg.map.view.home.Home;
-	import com.ogilvy.ihg.map.view.home.HomeMediator;
 	import com.ogilvy.ihg.map.view.hotspot.Hotspot;
 	import com.ogilvy.ihg.map.view.hotspot.HotspotMediator;
 	import com.ogilvy.ihg.map.view.module.Module;
@@ -53,8 +51,7 @@ package com.ogilvy.ihg.map.controller
 			signalCommandMap.mapSignalClass(BackHomeSignal, BackHomeCommand);
 			signalCommandMap.mapSignalClass(LoadOverlaySignal, LoadOverlayCommand);
 			signalCommandMap.mapSignalClass(CloseOverlaySignal, CloseOverlayCommand);
-			
-			mediatorMap.mapView(Home, HomeMediator);
+		
 			mediatorMap.mapView(Hotspot, HotspotMediator);
 			mediatorMap.mapView(Module, ModuleMediator);
 			mediatorMap.mapView(Overlay, OverlayMediator);

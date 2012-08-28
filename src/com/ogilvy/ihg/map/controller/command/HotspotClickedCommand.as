@@ -14,7 +14,7 @@ package com.ogilvy.ihg.map.controller.command {
 		public override function execute():void {
 			if(vo.module) {
 				loadModuleSignal.dispatch(vo.module);
-			}else if(vo.overlay.address) {
+			}else if(vo.overlay) {
 				loadOverlaySignal.dispatch(vo.overlay);
 			}
 		

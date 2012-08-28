@@ -16,14 +16,17 @@ package com.ogilvy.ihg.map.view.module {
 		
 		private var _hotspotsContainer:Sprite;
 		
+		private var _map:MovieClip;
+		
 		public function Module() {
-			
-			visible = false;	
+			visible = false;
+			alpha = 0;
 			_hotspotsContainer = new Sprite();
 		}
 		
 		public function set data(val:ModuleVO):void {
-			addChild(DisplayObjectLoader(val.map).displayObject);	
+			_map = MovieClip(DisplayObjectLoader(val.map).displayObject);
+			addChild(_map);	
 			addChild(_hotspotsContainer);
 			var hotspots:Array = val.hotspots;
 			var i:int = hotspots.length;
@@ -31,7 +34,9 @@ package com.ogilvy.ihg.map.view.module {
 			var hotspotVO:HotspotVO;
 			while( --i > -1 ) {
 				hotspotVO = HotspotVO(hotspots[i]);
-				if(hotspotVO.type == 1) {
+				if(hotspotVO.type == 0) {
+					hotspot = new Hotspot(Lib.getMovieClip('MainHotspot'));
+				} else if(hotspotVO.type == 1) {
 					hotspot = new Hotspot(Lib.getMovieClip('HotelHotspot'));
 				}else {
 					hotspot = new Hotspot(Lib.getMovieClip('SigthHotspot'));
@@ -39,6 +44,22 @@ package com.ogilvy.ihg.map.view.module {
 				hotspot.data = HotspotVO(hotspots[i]);
 				_hotspotsContainer.addChild(hotspot);
 			}
+			if(_map.route) _map.route.alpha = 0;
+		}
+		
+		public override function show():void {
+			scaleX = scaleY = 0.8, 
+			x = 960 * .2 * .5;
+			y = 500 * .2 * .5;
+			TweenMax.to(this, .4, {transformMatrix:{x: 0, y:0, scaleX:1, scaleY:1}});
+			super.show();
+		}
+		
+		
+		
+		public override function hide():void {
+			TweenMax.to(this, .4, {transformMatrix:{x: 960 * .2 * .5, y:500 * .2 * .5, scaleX:.8, scaleY:.8}});
+			super.hide();
 		}
 
 	}

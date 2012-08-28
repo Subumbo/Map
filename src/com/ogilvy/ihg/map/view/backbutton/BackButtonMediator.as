@@ -21,7 +21,6 @@ package com.ogilvy.ihg.map.view.backbutton {
 		}
 		
 		private function onClicked():void {
-			view.hide();
 			backHomeSignal.dispatch();	
 		}
 		

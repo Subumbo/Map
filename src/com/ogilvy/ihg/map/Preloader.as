@@ -13,7 +13,7 @@ package com.ogilvy.ihg.map {
 	[SWF(width='960', height='500', backgroundColor='#ffffff', frameRate='30')]
 	public class Preloader extends MicrositePreloader {
 		
-		[Embed(source="assets/PreloaderAsset.swf", symbol="PreloaderAsset")]
+		[Embed(source="assets/preloader_asset.swf", symbol="PreloaderAsset")]
 		private var Asset:Class;
 		
 		private var _asset:Object;
