@@ -3,8 +3,12 @@ package com.ogilvy.ihg.map.view.tooltip {
 	import com.ogilvy.ihg.map.model.Lib;
 	import com.ogilvy.ihg.map.model.vo.TooltipVO;
 	
+	import flash.display.Bitmap;
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
+	
+	import org.assetloader.loaders.DisplayObjectLoader;
+	import org.assetloader.loaders.ImageLoader;
 	
 	public class Tooltip extends Sprite {
 		public function Tooltip() {
@@ -13,7 +17,7 @@ package com.ogilvy.ihg.map.view.tooltip {
 		
 		public function set data(val:TooltipVO):void {
 			
-			var type:String = 'Complex';
+			var type:String = (val.type == 1) ? 'Complex' : 'Simple';
 			var position:String = val.position.toUpperCase();
 			
 			var id:String = 'Tooltip' + type + position;
@@ -42,6 +46,11 @@ package com.ogilvy.ihg.map.view.tooltip {
 				}else {
 					asset.description.width = asset.label.width;
 				}
+				
+				var image:Bitmap = ImageLoader(val.thumb).bitmap;
+				image.smoothing = true;
+				image.width = image.height = 58
+				asset.img.addChild(image);
 			}
 			
 			addChild(asset);

@@ -8,7 +8,6 @@ package com.ogilvy.ihg.map.controller.command {
 		[Inject] public var screenManager:ScreenManager;
 		
 		public override function execute():void {
-			trace('BACK');
 			screenManager.showHome();
 			// transisiton to main map 
 			// destroy module

@@ -5,5 +5,6 @@ package com.ogilvy.ihg.map.model.vo {
 		public var address:String;
 		public var link:String;
 		public var slideShow:SlideShowVO;
+		public var owner:HotspotVO;
 	}
 }

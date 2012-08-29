@@ -8,15 +8,16 @@ package com.ogilvy.ihg.map.view.module {
 	
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
+	import flash.utils.setTimeout;
 	
 	import org.assetloader.loaders.DisplayObjectLoader;
 	import org.osflash.signals.Signal;
 	
 	public class Module extends View {
 		
-		private var _hotspotsContainer:Sprite;
+		protected var _hotspotsContainer:Sprite;
 		
-		private var _map:MovieClip;
+		protected var _map:MovieClip;
 		
 		public function Module() {
 			visible = false;
@@ -51,15 +52,21 @@ package com.ogilvy.ihg.map.view.module {
 			scaleX = scaleY = 0.8, 
 			x = 960 * .2 * .5;
 			y = 500 * .2 * .5;
-			TweenMax.to(this, .4, {transformMatrix:{x: 0, y:0, scaleX:1, scaleY:1}});
-			super.show();
+			TweenMax.to(this, .4, {autoAlpha:1, transformMatrix:{x: 0, y:0, scaleX:1, scaleY:1}, onComplete:_shown.dispatch});
+			var i:int = _hotspotsContainer.numChildren;
+			while( --i > -1 ) {
+				setTimeout(Hotspot(_hotspotsContainer.getChildAt(i)).show, i * 100 + 400);
+			}
 		}
 		
 		
 		
 		public override function hide():void {
-			TweenMax.to(this, .4, {transformMatrix:{x: 960 * .2 * .5, y:500 * .2 * .5, scaleX:.8, scaleY:.8}});
-			super.hide();
+			TweenMax.to(this, .4, {autoAlpha:0, transformMatrix:{x: 960 * .2 * .5, y:500 * .2 * .5, scaleX:.8, scaleY:.8}, onComplete:_hidden.dispatch});
+			var i:int = _hotspotsContainer.numChildren;
+			while( --i > -1 ) {
+				Hotspot(_hotspotsContainer.getChildAt(i)).hide();
+			}
 		}
 
 	}

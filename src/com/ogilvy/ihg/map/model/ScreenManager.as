@@ -3,6 +3,8 @@ package com.ogilvy.ihg.map.model {
 	import com.greensock.easing.FastEase;
 	import com.greensock.easing.Quad;
 	import com.greensock.plugins.BlurFilterPlugin;
+	import com.greensock.plugins.ColorTransformPlugin;
+	import com.greensock.plugins.GlowFilterPlugin;
 	import com.greensock.plugins.TransformMatrixPlugin;
 	import com.greensock.plugins.TweenPlugin;
 	import com.ogilvy.ihg.map.model.vo.ModuleVO;
@@ -18,14 +20,14 @@ package com.ogilvy.ihg.map.model {
 	public class ScreenManager {
 		
 		private var _view:DisplayObjectContainer;
-		private var _home:Module;
+		private var _home:HomeModule;
 		private var _back:BackButton;
 		private var _currentModule:Module;
 		private var _overlay:Overlay;
 		
 		public function ScreenManager(view:DisplayObjectContainer) {
 			_view = view;
-			TweenPlugin.activate([TransformMatrixPlugin]);
+			TweenPlugin.activate([TransformMatrixPlugin, ColorTransformPlugin, GlowFilterPlugin]);
 			FastEase.activate([Quad]);
 		}
 		
@@ -34,7 +36,7 @@ package com.ogilvy.ihg.map.model {
 			_home.data = homeModuleVO;
 			_back = new BackButton(Lib.getMovieClip('BackButtonView'));;
 			_view.addChild(_home);
-			_home.show();
+			_home.intro();
 			var i:int = _view.numChildren;
 		}
 		
@@ -45,6 +47,7 @@ package com.ogilvy.ihg.map.model {
 			_view.addChild(_back);
 			TweenMax.to(_home, .4, {transformMatrix:{x:model.owner.coords.x * -2.8, y:model.owner.coords.y * -2.8, scaleX:4, scaleY:4}});
 			module.show();
+			module.shown.addOnce(_home.hide);
 			_back.show();
 			_currentModule = module;
 		}
@@ -52,7 +55,7 @@ package com.ogilvy.ihg.map.model {
 		public function showHome():void {
 			_back.hide();
 			_currentModule.hide();
-			TweenMax.to(_home, .4, {transformMatrix:{x:0, y:0, scaleX:1, scaleY:1}});
+			TweenMax.to(_home, .4, {transformMatrix:{x:0, y:0, scaleX:1, scaleY:1}, onComplete:_home.show});
 			_currentModule.hidden.addOnce(onModuleHidden);
 		}
 		

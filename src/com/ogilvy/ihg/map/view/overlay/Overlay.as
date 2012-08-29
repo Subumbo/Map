@@ -4,6 +4,7 @@ package com.ogilvy.ihg.map.view.overlay {
 	import com.ogilvy.ihg.map.model.vo.OverlayVO;
 	import com.ogilvy.ihg.map.view.Button;
 	import com.ogilvy.ihg.map.view.View;
+	import com.ogilvy.ihg.map.view.share.Share;
 	
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
@@ -19,12 +20,17 @@ package com.ogilvy.ihg.map.view.overlay {
 		private var _model:OverlayVO;
 		private var _cta:Button;
 		private var _close:Button;
+		private var _slideShow:SlideShow;
+		private var _share:Share;
+		
 		
 		public var closed:Signal;
+		
 		
 		public function Overlay() {
 			alpha = 0;
 			closed = new Signal();
+			_slideShow = new SlideShow();
 		}
 		
 		public function set data(val:OverlayVO):void {
@@ -54,6 +60,19 @@ package com.ogilvy.ihg.map.view.overlay {
 			_asset.title.htmlText = val.title;
 			_asset.description.htmlText = val.description;
 			
+			_share = new Share(_asset.share);
+			_share.data = val;
+			addChild(_share);
+			
+			_asset.image.addChild(_slideShow);
+			_slideShow.mask = _asset.image.masker;
+			_slideShow.data = val.slideShow.assets ;
+			_slideShow.delay = val.slideShow.delay;
+			_slideShow.transitionTime = val.slideShow.transitionTime;
+			_slideShow.start();
+			
+			
+			
 		}
 		
 		private function onClose(e:MouseEvent):void {
@@ -65,11 +84,16 @@ package com.ogilvy.ihg.map.view.overlay {
 			_asset.removeChild(_close);
 			_asset.hit.removeEventListener(MouseEvent.MOUSE_DOWN, onClose);
 			closed.removeAll();
+			_asset.image.removeChild(_slideShow);
+			_slideShow.destroy();
+			_slideShow = null;
 			closed = null;
 			_asset = null;
 			_close = null;
+			_model = null;
 			if(_cta) _cta.destroy();
 			_cta = null;
+			
 			super.destroy();
 		}
 	}

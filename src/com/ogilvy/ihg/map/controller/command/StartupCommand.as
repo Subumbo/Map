@@ -51,11 +51,17 @@ package com.ogilvy.ihg.map.controller.command {
 				tooltipVO.description = hotspot.tooltip.description;
 				tooltipVO.thumb = loader.getLoader(String(hotspot.tooltip.asset.@src));
 				tooltipVO.locale = locale;
+				if(tooltipVO.description != '' && tooltipVO.thumb) {
+					tooltipVO.type = 1;
+				}else {
+					tooltipVO.type = 0;
+				}
 				
 				slideShowVO = new SlideShowVO();
 				slideShowVO.delay = Number(hotspot.overlay.slide_show.@delay);
+				slideShowVO.transitionTime = Number(hotspot.overlay.slide_show.@transition);
 				for each(slide in hotspot.overlay.slide_show.asset) {
-					slideShowVO.assets.push(slide);
+					slideShowVO.assets.push(loader.getLoader(String(slide.@src)));
 				}
 				
 				
@@ -69,6 +75,7 @@ package com.ogilvy.ihg.map.controller.command {
 					overlayVO.link = overlay.link;	
 					overlayVO.slideShow = slideShowVO;
 					hotspotVO.overlay = overlayVO;
+					overlayVO.owner = hotspotVO;
 				}else if(hotspot.module.length() > 0) {
 				   	hotspotVO.module = parse(hotspot.module[0], locale);
 					hotspotVO.module.owner = hotspotVO;

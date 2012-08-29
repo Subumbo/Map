@@ -5,6 +5,7 @@ package com.ogilvy.ihg.map.controller
 	import com.ogilvy.ihg.map.controller.command.HotspotClickedCommand;
 	import com.ogilvy.ihg.map.controller.command.LoadModuleCommand;
 	import com.ogilvy.ihg.map.controller.command.LoadOverlayCommand;
+	import com.ogilvy.ihg.map.controller.command.ShareCommand;
 	import com.ogilvy.ihg.map.controller.command.StartupCommand;
 	import com.ogilvy.ihg.map.controller.signal.BackHomeSignal;
 	import com.ogilvy.ihg.map.controller.signal.CloseOverlaySignal;
@@ -12,8 +13,11 @@ package com.ogilvy.ihg.map.controller
 	import com.ogilvy.ihg.map.controller.signal.LoadModuleSignal;
 	import com.ogilvy.ihg.map.controller.signal.LoadOverlaySignal;
 	import com.ogilvy.ihg.map.controller.signal.ModuleLoadedSignal;
+	import com.ogilvy.ihg.map.controller.signal.ShareSignal;
 	import com.ogilvy.ihg.map.model.ScreenManager;
 	import com.ogilvy.ihg.map.model.StateModel;
+	import com.ogilvy.ihg.map.service.FacebookShareService;
+	import com.ogilvy.ihg.map.service.ShareService;
 	import com.ogilvy.ihg.map.view.backbutton.BackButton;
 	import com.ogilvy.ihg.map.view.backbutton.BackButtonMediator;
 	import com.ogilvy.ihg.map.view.hotspot.Hotspot;
@@ -22,6 +26,8 @@ package com.ogilvy.ihg.map.controller
 	import com.ogilvy.ihg.map.view.module.ModuleMediator;
 	import com.ogilvy.ihg.map.view.overlay.Overlay;
 	import com.ogilvy.ihg.map.view.overlay.OverlayMediator;
+	import com.ogilvy.ihg.map.view.share.Share;
+	import com.ogilvy.ihg.map.view.share.ShareMediator;
 	
 	import flash.display.DisplayObjectContainer;
 	import flash.display.Sprite;
@@ -44,6 +50,8 @@ package com.ogilvy.ihg.map.controller
 			injector.mapValue(AssetLoader, _loader);
 			injector.mapSingleton(StateModel);
 			injector.mapValue(ScreenManager, new ScreenManager(contextView));
+			injector.mapSingleton(ShareService);
+			injector.mapSingleton(FacebookShareService);
 			
 			signalCommandMap.mapSignalClass(HotspotClickedSignal, HotspotClickedCommand);
 			signalCommandMap.mapSignalClass(LoadModuleSignal, LoadModuleCommand);
@@ -51,11 +59,13 @@ package com.ogilvy.ihg.map.controller
 			signalCommandMap.mapSignalClass(BackHomeSignal, BackHomeCommand);
 			signalCommandMap.mapSignalClass(LoadOverlaySignal, LoadOverlayCommand);
 			signalCommandMap.mapSignalClass(CloseOverlaySignal, CloseOverlayCommand);
+			signalCommandMap.mapSignalClass(ShareSignal, ShareCommand);
 		
 			mediatorMap.mapView(Hotspot, HotspotMediator);
 			mediatorMap.mapView(Module, ModuleMediator);
 			mediatorMap.mapView(Overlay, OverlayMediator);
 			mediatorMap.mapView(BackButton, BackButtonMediator);
+			mediatorMap.mapView(Share, ShareMediator);
 			
 			commandMap.execute(StartupCommand);
 		}

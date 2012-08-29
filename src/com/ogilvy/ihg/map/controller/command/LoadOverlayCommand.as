@@ -10,14 +10,7 @@ package com.ogilvy.ihg.map.controller.command {
 		[Inject] public var vo:OverlayVO;
 		
 		public override function execute():void {
-			
-			trace('SHOW OVERLAY');
-			
 			screenManager.showOverlay(vo)
-			// load hotel overlay assets
-			// populate
-			// transition to overlay
-			// release command
 		}
 		
 	}

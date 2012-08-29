@@ -11,13 +11,7 @@ package com.ogilvy.ihg.map.controller.command {
 		[Inject] public var screenManager:ScreenManager;
 		
 		public override function execute():void {
-			
-			
 			screenManager.showModule(vo);
-			
-			// load assets
-			// prepare module view and controller 
-			// run transisiton to show module and release command
 		}
 		
 	}
