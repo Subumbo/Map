@@ -83,6 +83,7 @@ package com.ogilvy.ihg.map.view.overlay {
 			_slides = val;
 			if(!val || val.length == 0) throw new Error('Slideshow data corrupt. Ensure data array contains ILoader objects. Array length: ' +  val.length);
 			_old = getSlide(0);
+			_old.alpha = 1;
 			addChild(_old);
 		}
 		

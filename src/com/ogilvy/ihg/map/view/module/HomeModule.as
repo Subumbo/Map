@@ -11,7 +11,7 @@ package com.ogilvy.ihg.map.view.module {
 			visible = true;
 			TweenMax.to(this, 0, {colorTransform:{exposure:2}});
 			TweenMax.to(this, 1, {colorTransform:{exposure:1}, onComplete:show});
-		}
+		} 
 		
 		public override function hide():void {
 			var i:int = _hotspotsContainer.numChildren;

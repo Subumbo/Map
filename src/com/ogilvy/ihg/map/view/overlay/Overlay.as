@@ -60,9 +60,11 @@ package com.ogilvy.ihg.map.view.overlay {
 			_asset.title.htmlText = val.title;
 			_asset.description.htmlText = val.description;
 			
-			_share = new Share(_asset.share);
-			_share.data = val;
-			addChild(_share);
+			if(_asset.share) {
+				_share = new Share(_asset.share);
+				_share.data = val;
+				addChild(_share);
+			}
 			
 			_asset.image.addChild(_slideShow);
 			_slideShow.mask = _asset.image.masker;
