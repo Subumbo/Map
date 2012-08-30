@@ -14,6 +14,12 @@ package com.ogilvy.ihg.map.view.overlay {
 	
 	import org.osflash.signals.Signal;
 	
+	/**
+	 * Overlay view component. 
+	 * @author pwolleb
+	 * 
+	 */	
+	
 	public class Overlay extends View {
 		
 		private var _asset:MovieClip;
@@ -22,10 +28,8 @@ package com.ogilvy.ihg.map.view.overlay {
 		private var _close:Button;
 		private var _slideShow:SlideShow;
 		private var _share:Share;
-		
-		
+	
 		public var closed:Signal;
-		
 		
 		public function Overlay() {
 			alpha = 0;
@@ -33,6 +37,12 @@ package com.ogilvy.ihg.map.view.overlay {
 			_slideShow = new SlideShow();
 		}
 		
+		/**
+		 * Populates the overlay with and OverlayVO. Loads correct asset depending on type(Hotel/Sight) and locale(Arabic is right aligned)
+		 * Creates an instance of SlideShow and Share
+		 * @param val
+		 * 
+		 */		
 		public function set data(val:OverlayVO):void {
 			_model = val;
 			if(val.address) {
@@ -89,6 +99,11 @@ package com.ogilvy.ihg.map.view.overlay {
 			_asset.image.removeChild(_slideShow);
 			_slideShow.destroy();
 			_slideShow = null;
+			if(_share) {
+				removeChild(_share);
+				_share.destroy();
+			}
+			_share = null;
 			closed = null;
 			_asset = null;
 			_close = null;

@@ -4,9 +4,23 @@ package com.ogilvy.ihg.map.service {
 	import flash.net.URLVariables;
 	import flash.net.navigateToURL;
 	
+	
+	/**
+	 * AddThis Share service 
+	 * @author pwolleb
+	 * 
+	 */	
+	
 	public class ShareService {
 		
 		private const ADD_THIS_EXCHANGE_ENDPOINT:String = 'http://api.addthis.com/oexchange/0.8/';
+		
+		/**
+		 * @param url The url to share
+		 * @param title The title to share
+		 * @param description The description to share
+		 * 
+		 */		
 		
 		public function send(url:String, title:String, description:String):void {
 			var shareURL:String;

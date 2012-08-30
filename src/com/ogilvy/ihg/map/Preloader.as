@@ -10,6 +10,11 @@ package com.ogilvy.ihg.map {
 	
 	import shmedia.micro.MicrositePreloader;
 	
+	/**
+	 * Preloader hooks up the view asset with the preloader controller (MicrositePreloader.as which is the base class).
+	 * Designer can design the preloader_asset.swf in the .fla (./support/Preloader_Asset/Preloader_Asset.fla). Once design is finished the swf needs to be compiled into the preloader via the flex compiler.
+	 */	
+	
 	[SWF(width='960', height='500', backgroundColor='#ffffff', frameRate='30')]
 	public class Preloader extends MicrositePreloader {
 		

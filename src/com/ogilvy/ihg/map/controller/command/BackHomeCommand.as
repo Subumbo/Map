@@ -3,15 +3,18 @@ package com.ogilvy.ihg.map.controller.command {
 	
 	import org.robotlegs.mvcs.SignalCommand;
 	
+	/**
+	 * Command changes view state to home 
+	 * @author pwolleb
+	 * 
+	 */	
+	
 	public class BackHomeCommand extends SignalCommand {
 		
 		[Inject] public var screenManager:ScreenManager;
 		
 		public override function execute():void {
-			screenManager.showHome();
-			// transisiton to main map 
-			// destroy module
-			// release command
+			screenManager.hideModule();
 		}
 		
 	}

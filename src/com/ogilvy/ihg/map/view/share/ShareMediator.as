@@ -4,6 +4,11 @@ package com.ogilvy.ihg.map.view.share {
 	
 	import org.robotlegs.mvcs.Mediator;
 	
+	/**
+	 * Dispatches ShareSignal on share icon click.
+	 * @author pwolleb
+	 * 
+	 */	
 	public class ShareMediator extends Mediator {
 		
 		[Inject] public var view:Share;
@@ -14,7 +19,6 @@ package com.ogilvy.ihg.map.view.share {
 		}
 		
 		private function onShare(overlayVO:OverlayVO, type:int):void {
-			trace('SAHRe Mdiator');
 			shareSignal.dispatch(overlayVO, type);
 		}
 		

@@ -10,6 +10,12 @@ package com.ogilvy.ihg.map.view.overlay {
 	import org.assetloader.core.ILoader;
 	import org.assetloader.loaders.DisplayObjectLoader;
 	
+	/**
+	 * Generic Slideshow 
+	 * @author pwolleb
+	 * 
+	 */	
+	
 	public class SlideShow extends View {
 		
 		private var _delay:Number = 4;
@@ -22,6 +28,11 @@ package com.ogilvy.ihg.map.view.overlay {
 		
 		private var _index:int;
 		
+		
+		/**
+		 * Override to implement a custom trasition 
+		 * 
+		 */		
 		protected function transition():void {
 			_new.alpha = 0;
 			addChild(_new);
@@ -32,10 +43,19 @@ package com.ogilvy.ihg.map.view.overlay {
 			}});
 		}
 		
+		/**
+		 * The duration of the cross fades
+		 * @param val
+		 * 
+		 */		
 		public function set transitionTime(val:Number):void {
 			_transition = val;
 		}
 		
+		/**
+		 * Starts the slideshow if more than 1 slide. 
+		 * 
+		 */		
 		public function start():void {
 			if(_slides.length > 1) {
 				if(!_timer) _timer = new Timer(_delay);
@@ -48,11 +68,18 @@ package com.ogilvy.ihg.map.view.overlay {
 			}
 		}
 		
-		
+		/**
+		 * Stops the internal timer 
+		 * 
+		 */		
 		public function stop():void {
 			if(_timer) _timer.stop();
 		}
 		
+		/**
+		 * Resumes the show from the stopped position
+		 * 
+		 */		
 		public function resume():void {
 			if(_timer) _timer.start();	
 		}
@@ -61,6 +88,10 @@ package com.ogilvy.ihg.map.view.overlay {
 			next();
 		}
 		
+		/**
+		 * Shows next slide; 
+		 * 
+		 */		
 		public function next():void {
 			_index++;
 			if(_index == _slides.length) _index = 0;
@@ -68,6 +99,10 @@ package com.ogilvy.ihg.map.view.overlay {
 			transition();
 		}
 		
+		/**
+		 * Shows previous slide; 
+		 * 
+		 */
 		public function previous():void {
 			_index--;
 			if(_index == -1) _index = _slides.length-1;
@@ -75,6 +110,10 @@ package com.ogilvy.ihg.map.view.overlay {
 			transition();
 		}
 		
+		/**
+		 * The sill time between transitions 
+		 * 
+		 */
 		public function set delay(val:Number):void {
 			_delay = val * 1000;
 		}

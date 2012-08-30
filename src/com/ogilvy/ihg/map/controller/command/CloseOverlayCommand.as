@@ -3,6 +3,12 @@ package com.ogilvy.ihg.map.controller.command {
 	
 	import org.robotlegs.mvcs.SignalCommand;
 	
+	/**
+	 * Command closes overaly and changes view state to either home or area view. 
+	 * @author pwolleb
+	 * 
+	 */	
+	
 	public class CloseOverlayCommand extends SignalCommand {
 		
 		[Inject] public var screenManager:ScreenManager;

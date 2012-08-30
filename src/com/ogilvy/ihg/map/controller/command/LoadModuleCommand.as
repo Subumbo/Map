@@ -5,6 +5,12 @@ package com.ogilvy.ihg.map.controller.command {
 	
 	import org.robotlegs.mvcs.SignalCommand;
 	
+	/**
+	 * Command changes view state to module (area with sub map)
+	 * @author pwolleb
+	 * 
+	 */	
+	
 	public class LoadModuleCommand extends SignalCommand {
 		
 		[Inject] public var vo:ModuleVO;

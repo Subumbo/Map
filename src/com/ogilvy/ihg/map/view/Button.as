@@ -4,6 +4,13 @@ package com.ogilvy.ihg.map.view {
 	
 	import org.osflash.signals.Signal;
 	
+	
+	/**
+	 * Base class for buttons can be abstract or concrete. The Asset passed has to implement a label convention. 
+	 * Exmaple View can be found in ./support/Main_Assets.fla -> Library -> BackButtonView
+	 * @author pwolleb
+	 * 
+	 */	
 	public class Button extends View {
 		
 		protected var _clicked:Signal;
@@ -27,6 +34,12 @@ package com.ogilvy.ihg.map.view {
 			addEventListener(MouseEvent.ROLL_OUT, onRollOut);
 		}
 		
+		protected override function removeListeners():void {
+			removeEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
+			removeEventListener(MouseEvent.ROLL_OVER, onRollOver);
+			removeEventListener(MouseEvent.ROLL_OUT, onRollOut);
+		}
+		
 		protected function onMouseDown(e:MouseEvent):void {
 			_clicked.dispatch();	
 		}
@@ -47,6 +60,16 @@ package com.ogilvy.ihg.map.view {
 		
 		public function get clicked():Signal {
 			return _clicked;
+		}
+		
+		public override function destroy():void {
+			Utils.removeLabelScript(_asset.bg, 'Out');
+			Utils.removeLabelScript(_asset.bg, 'Over');
+			_clicked.removeAll();
+			removeChild(_asset);
+			_clicked = null;
+			_asset = null;
+			super.destroy();
 		}
 	}
 }

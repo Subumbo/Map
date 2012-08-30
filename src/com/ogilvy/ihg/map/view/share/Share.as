@@ -12,6 +12,12 @@ package com.ogilvy.ihg.map.view.share {
 	
 	import org.osflash.signals.Signal;
 	
+	/**
+	 * Share View Component dipatches a shared signal containing an OverlayVO and type(int) 
+	 * @author pwolleb
+	 * 
+	 */	
+	
 	public class Share extends View {
 		
 		public var shared:Signal;
@@ -19,17 +25,28 @@ package com.ogilvy.ihg.map.view.share {
 		private var _asset:MovieClip;
 		
 		public function Share(asset:MovieClip) {
+			super();
 			shared = new Signal(OverlayVO, int);
-			_asset = asset;
-			
-			var fb:MovieClip = asset.facebook;
-			var tw:MovieClip = asset.twitter;
-			fb.buttonMode = tw.buttonMode = true;
+			_asset = asset;	
+			addListeners();
+		}
 		
+		protected override function addListeners():void {
+			var fb:MovieClip = _asset.facebook;
+			var tw:MovieClip = _asset.twitter;
+			fb.buttonMode = tw.buttonMode = true;
 			fb.addEventListener(MouseEvent.MOUSE_DOWN, onFacebook);
 			tw.addEventListener(MouseEvent.MOUSE_DOWN, onTwitter);
 		}
-		
+			
+		protected override function removeListeners():void {
+			var fb:MovieClip = _asset.facebook;
+			var tw:MovieClip = _asset.twitter;
+			fb.buttonMode = tw.buttonMode = false;
+			fb.removeEventListener(MouseEvent.MOUSE_DOWN, onFacebook);
+			tw.removeEventListener(MouseEvent.MOUSE_DOWN, onTwitter);
+		}
+	
 		public function set data(val:OverlayVO):void {
 			_model = val;
 		}
@@ -40,6 +57,11 @@ package com.ogilvy.ihg.map.view.share {
 		
 		private function onTwitter(e:MouseEvent):void {
 			shared.dispatch(_model, 1);
+		}
+		
+		public override function destroy():void {
+			shared.removeAll();
+			super.destroy();
 		}
 	}
 }

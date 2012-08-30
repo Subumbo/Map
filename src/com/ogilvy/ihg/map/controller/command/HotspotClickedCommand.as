@@ -5,6 +5,12 @@ package com.ogilvy.ihg.map.controller.command {
 	
 	import org.robotlegs.mvcs.SignalCommand;
 	
+	/**
+	 * Command loads either a module or an overlay.
+	 * @author pwolleb
+	 * 
+	 */	
+	
 	public class HotspotClickedCommand extends SignalCommand {
 		
 		[Inject] public var vo:HotspotVO;

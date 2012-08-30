@@ -4,6 +4,12 @@ package com.ogilvy.ihg.map.controller.command {
 	
 	import org.robotlegs.mvcs.SignalCommand;
 	
+	/**
+	 * Command changes view state to overlay. The Overlay instance itself decides wich overlay to display.
+	 * @author pwolleb
+	 * 
+	 */	
+	
 	public class LoadOverlayCommand extends SignalCommand {
 		
 		[Inject] public var screenManager:ScreenManager;

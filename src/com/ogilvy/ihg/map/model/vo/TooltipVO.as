@@ -1,6 +1,12 @@
 package com.ogilvy.ihg.map.model.vo {
 	import org.assetloader.core.ILoader;
-
+	
+	/**
+	 * Tooltip Value Object 
+	 * @author pwolleb
+	 * 
+	 */	
+	
 	public class TooltipVO {
 		public var position:String;
 		public var label:String;

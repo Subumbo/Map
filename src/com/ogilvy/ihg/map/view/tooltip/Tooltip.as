@@ -2,6 +2,7 @@ package com.ogilvy.ihg.map.view.tooltip {
 	import com.greensock.TweenMax;
 	import com.ogilvy.ihg.map.model.Lib;
 	import com.ogilvy.ihg.map.model.vo.TooltipVO;
+	import com.ogilvy.ihg.map.view.View;
 	
 	import flash.display.Bitmap;
 	import flash.display.MovieClip;
@@ -10,10 +11,16 @@ package com.ogilvy.ihg.map.view.tooltip {
 	import org.assetloader.loaders.DisplayObjectLoader;
 	import org.assetloader.loaders.ImageLoader;
 	
-	public class Tooltip extends Sprite {
-		public function Tooltip() {
-			
-		}
+	/**
+	 * Tooltip for hotspots. Simple and Complex, Left and Right-handed, 4 positions.
+	 * @author pwolleb
+	 * 
+	 */	
+	
+	public class Tooltip extends View {
+		
+		private var _asset:MovieClip;
+		private var _model:TooltipVO;
 		
 		public function set data(val:TooltipVO):void {
 			
@@ -54,19 +61,26 @@ package com.ogilvy.ihg.map.view.tooltip {
 			}
 			
 			addChild(asset);
-			
+			_asset = asset;
+			_model = val;
 			visible = false;
 		}
 		
 		
 		
-		public function show():void {
+		public override function show():void {
 			alpha = 0;
 			TweenMax.to(this, .5, {autoAlpha:1});
 		}
 		
-		public function hide():void {
+		public override function hide():void {
 			TweenMax.to(this, .2, {autoAlpha:0});
+		}
+		
+		public override function destroy():void {
+			var image:Bitmap = ImageLoader(_model.thumb).bitmap;
+			_asset.img.removeChild(image);
+			super.destroy();
 		}
 	}
 }

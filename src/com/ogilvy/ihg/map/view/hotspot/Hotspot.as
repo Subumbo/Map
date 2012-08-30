@@ -10,6 +10,12 @@ package com.ogilvy.ihg.map.view.hotspot {
 	
 	import org.osflash.signals.Signal;
 	
+	/**
+	 * Hotspot view component that holds the hotspot assets and the tooltip; 
+	 * @author pwolleb
+	 * 
+	 */	
+	
 	public class Hotspot extends Button {
 		
 		private var _tooltip:Tooltip;
@@ -35,17 +41,20 @@ package com.ogilvy.ihg.map.view.hotspot {
 			_clicked.dispatch(_model);
 		}
 		
-		public function set data(val:HotspotVO):void {
-			
+		public function set data(val:HotspotVO):void {			
 			_model = val;	
-			addChild(_asset);
-			
 			this.x = val.coords.x;
 			this.y = val.coords.y;
 			_tooltip = new Tooltip();
 			_tooltip.mouseEnabled = false;
 			_tooltip.data = val.tooltip;
 			addChild(_tooltip);
+		}
+		
+		public override function destroy():void {
+			removeChild(_tooltip);
+			_tooltip.destroy();
+			super.destroy();
 		}
 	}
 }

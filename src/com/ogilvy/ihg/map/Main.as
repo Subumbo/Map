@@ -7,27 +7,29 @@ package com.ogilvy.ihg.map {
 	
 	import org.assetloader.AssetLoader;
 	
+	/**
+	 * Main app get initialised by the prelaoder and passed the AssetLoader. On startup the Robotlegs Context is created with passing an instance of AssetLoader containing data and asset for the app to initialise.
+	 * @author pwolleb
+	 * 
+	 */	
+	
 	public class Main extends Sprite {
-		
 		
 		private var _context:MicrositeContext;
 		private var _loader:AssetLoader;
 		
-		
-		public function init(loader:AssetLoader=null):void {			
-			
-			if(!loader) {
-				// running without preloader --> assets need loading
-			}else {
-				// running with Preloader
-				_loader = loader;
-				if(!stage) addEventListener(Event.ADDED_TO_STAGE, startup);
-				else startup();
-			}
+		/**
+		 * Call from Preloader. AssetLoader needs to have fully loaded all necessary asset for startup. 
+		 * @param loader
+		 * 
+		 */		
+		public function init(loader:AssetLoader):void {			
+			_loader = loader;
+			if(!stage) addEventListener(Event.ADDED_TO_STAGE, startup);
+			else startup();
 		}
 		
 		private function startup(e:Event=null):void {
-			
 			if(e) removeEventListener(Event.ADDED_TO_STAGE, startup);
 			_context = new MicrositeContext(_loader, stage)	
 		}

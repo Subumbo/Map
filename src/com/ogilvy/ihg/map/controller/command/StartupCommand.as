@@ -1,7 +1,7 @@
 package com.ogilvy.ihg.map.controller.command {
+	import com.ogilvy.ihg.map.model.ConfigModel;
 	import com.ogilvy.ihg.map.model.Lib;
 	import com.ogilvy.ihg.map.model.ScreenManager;
-	import com.ogilvy.ihg.map.model.StateModel;
 	import com.ogilvy.ihg.map.model.vo.HotspotVO;
 	import com.ogilvy.ihg.map.model.vo.ModuleVO;
 	import com.ogilvy.ihg.map.model.vo.OverlayVO;
@@ -16,12 +16,24 @@ package com.ogilvy.ihg.map.controller.command {
 	import org.assetloader.AssetLoader;
 	import org.robotlegs.mvcs.SignalCommand;
 	
+	/**
+	 * Parses the xml data and creates VO. Initialises the ScreenManager with the home module. 
+	 * Populates the config model with data from config.xml and tha swf loaderURL.
+	 * @author pwolleb
+	 * 
+	 */	
+	
 	public class StartupCommand extends SignalCommand {
 		
 		[Inject] public var loader:AssetLoader;
 		[Inject] public var screenManager:ScreenManager;
+		[Inject] public var config:ConfigModel;
 		
 		public override function execute():void {
+			var configXML:XML = XML(loader.getLoader('config').data);
+			config.loaderURL = contextView.stage.loaderInfo.loaderURL;
+			config.locale = configXML.item.(@key == 'locale');
+			config.flashRoot = configXML.item.(@key == 'root');
 			screenManager.init(parse(XML(loader.getLoader('data').data).content.module[0], String(XML(loader.getLoader('config').data).item.(@key == 'locale'))));
 		}
 		
@@ -39,9 +51,7 @@ package com.ogilvy.ihg.map.controller.command {
 			moduleVO = new ModuleVO();
 			moduleVO.map = loader.getLoader(module.asset.@src);
 			moduleVO.id = module.@id;
-			
-			
-			
+				
 			for each(hotspot in module.hotspots.hotspot) {
 				hotspotVO = new HotspotVO();
 				

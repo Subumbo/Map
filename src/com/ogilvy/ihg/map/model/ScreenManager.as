@@ -16,7 +16,13 @@ package com.ogilvy.ihg.map.model {
 	
 	import flash.display.DisplayObjectContainer;
 	import flash.display.Sprite;
-
+	
+	/**
+	 * Manages the application view states
+	 * @author pwolleb
+	 * 
+	 */	
+	
 	public class ScreenManager {
 		
 		private var _view:DisplayObjectContainer;
@@ -25,21 +31,35 @@ package com.ogilvy.ihg.map.model {
 		private var _currentModule:Module;
 		private var _overlay:Overlay;
 		
+		/**
+		 * 
+		 * @param Robotlegs contextView.
+		 * 
+		 */		
 		public function ScreenManager(view:DisplayObjectContainer) {
 			_view = view;
 			TweenPlugin.activate([TransformMatrixPlugin, ColorTransformPlugin, GlowFilterPlugin]);
 			FastEase.activate([Quad]);
 		}
 		
+		/**
+		 * Intialises the manager and shows the intro animation defined in HomeModule.intro 
+		 * @param homeModuleVO
+		 * 
+		 */		
 		public function init(homeModuleVO:ModuleVO):void {
 			_home = new HomeModule();
 			_home.data = homeModuleVO;
 			_back = new BackButton(Lib.getMovieClip('BackButtonView'));;
 			_view.addChild(_home);
 			_home.intro();
-			var i:int = _view.numChildren;
 		}
 		
+		/**
+		 * Creates and shows a module 
+		 * @param model
+		 * 
+		 */		
 		public function showModule(model:ModuleVO):void {
 			var module:Module = new Module();
 			module.data = model;
@@ -52,7 +72,10 @@ package com.ogilvy.ihg.map.model {
 			_currentModule = module;
 		}
 		
-		public function showHome():void {
+		/**
+		 *  Hides current module and destroys it.
+		 */		
+		public function hideModule():void {
 			_back.hide();
 			_currentModule.hide();
 			TweenMax.to(_home, .4, {transformMatrix:{x:0, y:0, scaleX:1, scaleY:1}, onComplete:_home.show});
@@ -66,6 +89,11 @@ package com.ogilvy.ihg.map.model {
 			_currentModule = null;
 		}
 		
+		/**
+		 * Creates and shows an overlay. 
+		 * @param model
+		 * 
+		 */		
 		public function showOverlay(model:OverlayVO):void {
 			_overlay = new Overlay();
 			_overlay.data = model;
@@ -74,6 +102,10 @@ package com.ogilvy.ihg.map.model {
 			resize(_view.stage.stageWidth, _view.stage.stageHeight);	
 		}
 		
+		/**
+		 * Hides an overlay and destroys it. 
+		 * 
+		 */		
 		public function hideOverlay():void {
 			_overlay.hide();
 			_overlay.hidden.addOnce(function():void {
@@ -83,6 +115,13 @@ package com.ogilvy.ihg.map.model {
 			});
 		}	
 		
+		
+		/**
+		 * Resizes the the main application view. 
+		 * @param width
+		 * @param height
+		 * 
+		 */		
 		public function resize(width:Number, height:Number):void {
 			_overlay.x = width * .5
 			_overlay.y = height * .5

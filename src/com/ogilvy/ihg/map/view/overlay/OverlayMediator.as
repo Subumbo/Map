@@ -3,6 +3,12 @@ package com.ogilvy.ihg.map.view.overlay {
 	
 	import org.robotlegs.mvcs.Mediator;
 	
+	/**
+	 * Dispatches CloseOverlaySignal on OverlayCloseButton click 
+	 * @author pwolleb
+	 * 
+	 */	
+	
 	public class OverlayMediator extends Mediator {
 		
 		[Inject] public var view:Overlay;

@@ -4,6 +4,12 @@ package com.ogilvy.ihg.map.model.vo {
 	
 	import org.assetloader.core.ILoader;
 	
+	/**
+	 * Hotspot Value Object 
+	 * @author pwolleb
+	 * 
+	 */	
+	
 	public class HotspotVO {
 		
 		public var coords:Point;

@@ -4,6 +4,11 @@ package com.ogilvy.ihg.map.view.hotspot {
 	
 	import org.robotlegs.mvcs.Mediator;
 	
+	/**
+	 * Mediator for Hotspot view dispatches HotspotClickedSignal on click.
+	 * @author pwolleb
+	 * 
+	 */
 	public class HotspotMediator extends Mediator {
 		
 		[Inject] public var view:Hotspot;
@@ -15,10 +20,6 @@ package com.ogilvy.ihg.map.view.hotspot {
 		
 		private function onClicked(vo:HotspotVO):void {
 			loadModuleSignal.dispatch(vo);
-		}
-		
-		public override function onRemove():void {
-			view.clicked.removeAll();
 		}
 		
 	}

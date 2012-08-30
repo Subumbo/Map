@@ -4,8 +4,18 @@ package com.ogilvy.ihg.map.view.module {
 	
 	import flash.utils.setTimeout;
 
+	/**
+	 * HomeModule class implements custom aniamtion for show/hide plaus adds a intro method
+	 * @author pwolleb
+	 * 
+	 */	
+	
 	public class HomeModule extends Module {
 		
+		/**
+		 * The app intro animation  
+		 * 
+		 */		
 		public function intro():void {
 			alpha = 1;
 			visible = true;

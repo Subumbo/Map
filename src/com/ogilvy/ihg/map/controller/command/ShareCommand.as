@@ -1,9 +1,16 @@
 package com.ogilvy.ihg.map.controller.command {
+	import com.ogilvy.ihg.map.model.ConfigModel;
 	import com.ogilvy.ihg.map.model.vo.OverlayVO;
 	import com.ogilvy.ihg.map.service.FacebookShareService;
 	import com.ogilvy.ihg.map.service.ShareService;
 	
 	import org.robotlegs.mvcs.SignalCommand;
+	
+	/**
+	 * Calls the correct share service. Either Facebook or AddThis.
+	 * @author pwolleb
+	 * 
+	 */	
 	
 	public class ShareCommand extends SignalCommand {
 		
@@ -11,12 +18,15 @@ package com.ogilvy.ihg.map.controller.command {
 		[Inject] public var shareService:ShareService;
 		[Inject] public var vo:OverlayVO;
 		[Inject] public var type:int;
+		[Inject] public var config:ConfigModel;
 		
 		public override function execute():void {
 			switch(type) {
 				
 				case 0 :
-					facebookService.send(vo.link, vo.title, vo.description, 'file://localhost/Users/pwolleb/WORK/IHG_Map/bin/resources/images/thumb.jpg');
+					var base:String = config.loaderURL.substr(0, config.loaderURL.lastIndexOf('/') + 1);;
+					if(config.flashRoot != '') base += '/' + config.flashRoot + '/';
+					facebookService.send(vo.link, vo.title, vo.description, base + vo.owner.tooltip.thumb.id);
 					break;
 				
 				case 1 :
