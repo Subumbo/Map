@@ -7,10 +7,10 @@ package com.ogilvy.ihg.map.model {
 	import com.greensock.plugins.GlowFilterPlugin;
 	import com.greensock.plugins.TransformMatrixPlugin;
 	import com.greensock.plugins.TweenPlugin;
+	import com.ogilvy.ihg.map.debug.Debug;
 	import com.ogilvy.ihg.map.model.vo.ModuleVO;
 	import com.ogilvy.ihg.map.model.vo.OverlayVO;
 	import com.ogilvy.ihg.map.view.backbutton.BackButton;
-	import com.ogilvy.ihg.map.debug.Debug;
 	import com.ogilvy.ihg.map.view.module.HomeModule;
 	import com.ogilvy.ihg.map.view.module.Module;
 	import com.ogilvy.ihg.map.view.overlay.Overlay;
@@ -31,6 +31,7 @@ package com.ogilvy.ihg.map.model {
 		private var _back:BackButton;
 		private var _currentModule:Module;
 		private var _overlay:Overlay;
+		private const _content:Sprite = new Sprite()
 		
 		/**
 		 * 
@@ -52,7 +53,11 @@ package com.ogilvy.ihg.map.model {
 			_home = new HomeModule();
 			_home.data = homeModuleVO;
 			_back = new BackButton(Lib.getMovieClip('BackButtonView'));;
-			_view.addChild(_home);
+			_back.x = 30;
+			_back.y = 40;
+			_view.addChild(_content);
+			_content.addChild(_home);
+			//_view.addChild(Lib.getMovieClip('Frame'));
 			_home.intro();
 		}
 		
@@ -64,8 +69,8 @@ package com.ogilvy.ihg.map.model {
 		public function showModule(model:ModuleVO):void {
 			var module:Module = new Module();
 			module.data = model;
-			_view.addChild(module);
-			_view.addChild(_back);
+			_content.addChild(module);
+			_content.addChild(_back);
 			TweenMax.to(_home, .4, {transformMatrix:{x:model.owner.coords.x * -2.8, y:model.owner.coords.y * -2.8, scaleX:4, scaleY:4}});
 			module.show();
 			module.shown.addOnce(_home.hide);
@@ -84,8 +89,8 @@ package com.ogilvy.ihg.map.model {
 		}
 		
 		private function onModuleHidden():void {
-			_view.removeChild(_back);
-			_view.removeChild(_currentModule);
+			_content.removeChild(_back);
+			_content.removeChild(_currentModule);
 			_currentModule.destroy();
 			_currentModule = null;
 		}
@@ -98,9 +103,9 @@ package com.ogilvy.ihg.map.model {
 		public function showOverlay(model:OverlayVO):void {
 			_overlay = new Overlay();
 			_overlay.data = model;
-			_view.addChild(_overlay);
+			_content.addChild(_overlay);
 			_overlay.show();
-			resize(_view.stage.stageWidth, _view.stage.stageHeight);	
+			resize(_content.stage.stageWidth, _content.stage.stageHeight);	
 		}
 		
 		/**
@@ -110,7 +115,7 @@ package com.ogilvy.ihg.map.model {
 		public function hideOverlay():void {
 			_overlay.hide();
 			_overlay.hidden.addOnce(function():void {
-				_view.removeChild(_overlay);
+				_content.removeChild(_overlay);
 				_overlay.destroy();
 				_overlay = null;
 			});
@@ -130,7 +135,7 @@ package com.ogilvy.ihg.map.model {
 		
 		public function showDebugPanel():void {
 			var d:Debug = new Debug();
-			_view.addChild(d);
+			_content.addChild(d);
 		}
 		
 	}
