@@ -13,6 +13,7 @@ package com.ogilvy.ihg.map.controller
 	import com.ogilvy.ihg.map.controller.signal.LoadModuleSignal;
 	import com.ogilvy.ihg.map.controller.signal.LoadOverlaySignal;
 	import com.ogilvy.ihg.map.controller.signal.ShareSignal;
+	import com.ogilvy.ihg.map.debug.DebugModel;
 	import com.ogilvy.ihg.map.model.ConfigModel;
 	import com.ogilvy.ihg.map.model.ScreenManager;
 	import com.ogilvy.ihg.map.service.FacebookShareService;
@@ -62,12 +63,13 @@ package com.ogilvy.ihg.map.controller
 		 */		
 		public override function startup():void {
 			super.startup();
-			
 			injector.mapValue(AssetLoader, _loader)
 			injector.mapValue(ScreenManager, new ScreenManager(contextView));
 			injector.mapSingleton(ShareService);
 			injector.mapSingleton(FacebookShareService);
 			injector.mapSingleton(ConfigModel);
+			
+			injector.mapValue(DebugModel, new DebugModel(contextView.stage));
 			
 			signalCommandMap.mapSignalClass(HotspotClickedSignal, HotspotClickedCommand);
 			signalCommandMap.mapSignalClass(LoadModuleSignal, LoadModuleCommand);

@@ -23,7 +23,7 @@ package com.ogilvy.ihg.map.view.module {
 		
 		protected var _hotspotsContainer:Sprite;
 		
-		protected var _map:MovieClip;
+		protected var _map:Map;
 		
 		public function Module() {
 			visible = false;
@@ -37,14 +37,16 @@ package com.ogilvy.ihg.map.view.module {
 		 * 
 		 */		
 		public function set data(val:ModuleVO):void {
-			_map = MovieClip(DisplayObjectLoader(val.map).displayObject);
+			_map = new Map(MovieClip(DisplayObjectLoader(val.map).displayObject));
 			addChild(_map);	
 			addChild(_hotspotsContainer);
 			var hotspots:Array = val.hotspots;
-			var i:int = hotspots.length;
+			
 			var hotspot:Hotspot;
 			var hotspotVO:HotspotVO;
-			while( --i > -1 ) {
+			var l:int = hotspots.length;
+			var i:int;
+			for(; i < l; ++i) {
 				hotspotVO = HotspotVO(hotspots[i]);
 				if(hotspotVO.type == 0) {
 					hotspot = new Hotspot(Lib.getMovieClip('MainHotspot'));
@@ -56,7 +58,7 @@ package com.ogilvy.ihg.map.view.module {
 				hotspot.data = HotspotVO(hotspots[i]);
 				_hotspotsContainer.addChild(hotspot);
 			}
-			if(_map.route) _map.route.alpha = 0;
+			
 		}
 		
 		/**
@@ -68,8 +70,10 @@ package com.ogilvy.ihg.map.view.module {
 			x = 960 * .2 * .5;
 			y = 500 * .2 * .5;
 			TweenMax.to(this, .4, {autoAlpha:1, transformMatrix:{x: 0, y:0, scaleX:1, scaleY:1}, onComplete:_shown.dispatch});
-			var i:int = _hotspotsContainer.numChildren;
-			while( --i > -1 ) {
+			var l:int = _hotspotsContainer.numChildren;
+			setTimeout(_map.showRoute, l * 100 + 400);
+			var i:int;
+			for(; i < l; ++i) {
 				setTimeout(Hotspot(_hotspotsContainer.getChildAt(i)).show, i * 100 + 400);
 			}
 		}
@@ -82,6 +86,7 @@ package com.ogilvy.ihg.map.view.module {
 		public override function hide():void {
 			TweenMax.to(this, .4, {autoAlpha:0, transformMatrix:{x: 960 * .2 * .5, y:500 * .2 * .5, scaleX:.8, scaleY:.8}, onComplete:_hidden.dispatch});
 			var i:int = _hotspotsContainer.numChildren;
+			_map.hideRoute();
 			while( --i > -1 ) {
 				Hotspot(_hotspotsContainer.getChildAt(i)).hide();
 			}

@@ -10,6 +10,7 @@ package com.ogilvy.ihg.map.model {
 	import com.ogilvy.ihg.map.model.vo.ModuleVO;
 	import com.ogilvy.ihg.map.model.vo.OverlayVO;
 	import com.ogilvy.ihg.map.view.backbutton.BackButton;
+	import com.ogilvy.ihg.map.debug.Debug;
 	import com.ogilvy.ihg.map.view.module.HomeModule;
 	import com.ogilvy.ihg.map.view.module.Module;
 	import com.ogilvy.ihg.map.view.overlay.Overlay;
@@ -125,6 +126,11 @@ package com.ogilvy.ihg.map.model {
 		public function resize(width:Number, height:Number):void {
 			_overlay.x = width * .5
 			_overlay.y = height * .5
+		}
+		
+		public function showDebugPanel():void {
+			var d:Debug = new Debug();
+			_view.addChild(d);
 		}
 		
 	}

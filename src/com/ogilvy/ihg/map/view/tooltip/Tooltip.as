@@ -78,8 +78,11 @@ package com.ogilvy.ihg.map.view.tooltip {
 		}
 		
 		public override function destroy():void {
-			var image:Bitmap = ImageLoader(_model.thumb).bitmap;
-			_asset.img.removeChild(image);
+			if(_model.type == 1) {
+				var image:Bitmap = ImageLoader(_model.thumb).bitmap;
+				_asset.img.removeChild(image);
+			}
+			removeChild(_asset);
 			super.destroy();
 		}
 	}
