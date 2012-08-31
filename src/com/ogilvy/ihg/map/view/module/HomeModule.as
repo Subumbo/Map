@@ -25,8 +25,8 @@ package com.ogilvy.ihg.map.view.module {
 		 */		
 		public function intro():void {
 			
-			intro0();
-			//intro1();
+			//intro0();
+			intro1();
 		} 
 		
 		private function intro1():void {

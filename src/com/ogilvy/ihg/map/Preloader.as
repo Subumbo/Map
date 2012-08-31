@@ -18,9 +18,6 @@ package com.ogilvy.ihg.map {
 	[SWF(width='960', height='500', backgroundColor='#ffffff', frameRate='30')]
 	public class Preloader extends MicrositePreloader {
 		
-		[Embed(source="assets/preloader_asset.swf", symbol="PreloaderAsset")]
-		private var Asset:Class;
-		
 		private var _asset:Object;
 		
 		private const LOADING_LABEL:String = "Loading:";
@@ -31,7 +28,7 @@ package com.ogilvy.ihg.map {
 		
 		protected override function added(e:Event):void {
 			super.added(e);
-			_asset = new Asset(); 
+			_asset = new PreloaderAsset();
 			_asset.label.autoSize = "left";
 			_asset.label.text = LOADING_LABEL;
 			_asset.type.x = _asset.label.x + _asset.label.width + 20;

@@ -1,10 +1,97 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="IHG Map" default="mockup" basedir=".">
+<project name="IHG Map" default="fluant" basedir="">
     
+	<target name="release" depends="preloader, main">
+		<echo>Done</echo>
+	</target>
+	
 	<target name="mockup">
 			<copy todir="support/page_mockup">
 		  	    <fileset dir="bin"/>
 		  	</copy>
+		
 	</target>
+	
+	<target name="fluant" description="Publish a simple SWF as debug and non-debug">
+	        <!-- Publish as a debuggable SWF -->
+		
+		<taskdef name="fla" classpath="${basedir}/fluant.jar" classname="com.amiasleep.fluant.flaPublisher.FlaPublisherTask" /> 
+	        <fla file="${basedir}/support/Main_Assets/Main_Assets_en_gb.fla" failonwarning="true">
+	            <swf permitDebugging="false" file="${basedir}/bin/resources/swf/main_assets_en_gb.swf" jpegquality="70"/>
+	        </fla>
+
+	    </target>
+	
+	    
+	<target name="fla_publish">
+		<taskdef resource="FuelAntTasks.properties" classpath="FuelAntTasks.jar" />
+	        <flash>
+	            <fla file="${basedir}/support/Main_Assets/Main_Assets_en_gb.fla" build="publish"/>
+	        </flash>
+	 </target>
+	
+	<target name="preloader">
+		<property name="FLEX_HOME" value="/Applications/Adobe Master Collection 5.5/Adobe Flash Builder 4.5/sdks/4.5.0/"/>
+		
+		<taskdef name="mxmlc" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar" classname="flex.ant.MxmlcTask"/> 
+		
+		<mxmlc 
+            file="${basedir}/src/com/ogilvy/ihg/map/Preloader.as" 
+            output="${basedir}/test/Preloader.swf"
+            actionscript-file-encoding="UTF-8"
+            keep-generated-actionscript="true"
+			static-link-runtime-shared-libraries="true"
+            incremental="false">
+		            
+		            <!-- List of path elements that form the roots of ActionScript
+		            class hierarchies. -->
+		            <source-path path-element="${FLEX_HOME}/frameworks"/>
+					<source-path path-element="${basedir}/src"/>
+					
+					
+			
+		            <!-- List of SWC files or directories that contain SWC files. -->
+		            <compiler.library-path dir="${basedir}">
+		                <include name="libs" />
+		            </compiler.library-path>
+			
+					
+
+		            <!-- Set size of output SWF file. -->
+		            <default-size width="960" height="500" />
+		 </mxmlc>
+	</target>
+	
+	<target name="main">
+			<property name="FLEX_HOME" value="/Applications/Adobe Master Collection 5.5/Adobe Flash Builder 4.5/sdks/4.5.0/"/>
+			
+			<taskdef name="mxmlc" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar" classname="flex.ant.MxmlcTask"/> 
+			
+			<mxmlc 
+	            file="${basedir}/src/com/ogilvy/ihg/map/Main.as" 
+	            output="${basedir}/test/Main.swf"
+	            actionscript-file-encoding="UTF-8"
+	            keep-generated-actionscript="true"
+				static-link-runtime-shared-libraries="true"
+	            incremental="false">
+			            
+			            <!-- List of path elements that form the roots of ActionScript
+			            class hierarchies. -->
+			            <source-path path-element="${FLEX_HOME}/frameworks"/>
+						<source-path path-element="${basedir}/src"/>
+						
+						
+				
+			            <!-- List of SWC files or directories that contain SWC files. -->
+			            <compiler.library-path dir="${basedir}">
+			                <include name="libs" />
+			            </compiler.library-path>
+				
+						
+
+			            <!-- Set size of output SWF file. -->
+			            <default-size width="960" height="500" />
+			 </mxmlc>
+		</target>
 	
 </project>
