@@ -1,34 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="DeployFlash" default="init" basedir=".">
+<project name="IHG Map" default="mockup" basedir=".">
     
-
-  <target name="init">
-    <!-- Create the time stamp -->
-    <tstamp/>
-    <!-- Create the build directory structure used by compile -->
-    <mkdir dir="../../NodeTest/flash"/>
-  	
-  	<copy todir="../../NodeTest/flash">
-  	    <fileset dir="bin"/>
-  	</copy>
-	
-  		<taskdef name="ftp"
-  		         classname="org.apache.tools.ant.taskdefs.optional.net.FTP">
-  		  <classpath>
-  		    <pathelement location="${basedir}/lib/ant-commons-net.jar"/>
-  		    <pathelement location="${basedir}/lib/commons-net-2.0.jar"/>
-  		  </classpath>
-  		</taskdef>
-
-  	
-  	 <ftp server="subumbo.com"
-  	       remotedir="public_html/build"
-  	       userid="subumboc"
-  	       password="stefanhounder">
-  	    <fileset dir="bin"/>
-  	  </ftp>
-  	
-  	
-  </target>
+	<target name="mockup">
+			<copy todir="support/page_mockup">
+		  	    <fileset dir="bin"/>
+		  	</copy>
+	</target>
 	
 </project>

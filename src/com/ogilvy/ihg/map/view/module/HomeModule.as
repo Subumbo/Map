@@ -24,10 +24,8 @@ package com.ogilvy.ihg.map.view.module {
 		 * 
 		 */		
 		public function intro():void {
-			alpha = 1;
-			visible = true;
-		 	TweenMax.from(this, 1, {rotationY:180});
-			//intro0();
+			
+			intro0();
 			//intro1();
 		} 
 		

@@ -57,7 +57,7 @@ package com.ogilvy.ihg.map.model {
 			_back.y = 40;
 			_view.addChild(_content);
 			_content.addChild(_home);
-			//_view.addChild(Lib.getMovieClip('Frame'));
+			_view.addChild(Lib.getMovieClip('Frame'));
 			_home.intro();
 		}
 		
