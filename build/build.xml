@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="IHG Map" default="bin" basedir="../">
+    
+	<property name="FLEX_HOME" value="/Applications/Adobe Master Collection 5.5/Adobe Flash Builder 4.5/sdks/4.5.0/"/>
+			
+	<taskdef name="mxmlc" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar" classname="flex.ant.MxmlcTask"/>
+	<taskdef name="fla"  classpath="${basedir}/libs/FlaAntTask.jar" classname="shmedia.utils.FlaAntTask"/>
+	
+	<target name="bin" depends="-preloader-release, -main-release">
+		<echo>Release Build Complete</echo>
+	</target>
+	
+	<target name="release-qa" depends="-preloader-release, -main-release">
+		<echo>Release Build Complete</echo>
+	</target>
+	
+	
+	
+	<target name="-mockup">
+		<copy todir="support/page_mockup">
+	  	    <fileset dir="bin"/>
+	  	</copy>
+	</target>
+	
+	
+	
+	<target name="-fla-publish" description="Use the Task">	
+		<fla folder="${basedir}/support/fla" />
+	</target>
+	  
+	
+	<target name="-preloader-release">
+		<mxmlc 
+            file="${basedir}/src/com/ogilvy/ihg/map/Preloader.as" 
+            output="${basedir}/release/Preloader.swf"
+            actionscript-file-encoding="UTF-8"
+            keep-generated-actionscript="false"
+			static-link-runtime-shared-libraries="true"
+            incremental="false">
+		          
+		            <source-path path-element="${FLEX_HOME}/frameworks"/>
+					<source-path path-element="${basedir}/src"/>
+				
+		            <compiler.library-path dir="${basedir}">
+		                <include name="libs" />
+		            </compiler.library-path>
+					
+		            <default-size width="960" height="500" />
+		 </mxmlc>
+	</target>
+	
+	<target name="-main-release">
+			<mxmlc 
+	            file="${basedir}/src/com/ogilvy/ihg/map/Main.as" 
+	            output="${basedir}/release/Main.swf"
+	            actionscript-file-encoding="UTF-8"
+	            keep-generated-actionscript="false"
+				static-link-runtime-shared-libraries="true"
+	            incremental="false">
+			          
+			            <source-path path-element="${FLEX_HOME}/frameworks"/>
+						<source-path path-element="${basedir}/src"/>
+					
+			            <compiler.library-path dir="${basedir}">
+			                <include name="libs" />
+			            </compiler.library-path>
+						
+			            <default-size width="960" height="500" />
+			 </mxmlc>
+		</target>
+
+	
+</project>
