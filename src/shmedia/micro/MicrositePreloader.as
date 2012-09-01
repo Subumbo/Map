@@ -16,6 +16,8 @@ package shmedia.micro {
 	import org.assetloader.signals.ErrorSignal;
 	import org.assetloader.signals.LoaderSignal;
 	
+	
+	
 	/**
 	 * Abstract preloader. Loads config.xml and locale.xml. Creates AssetLoader instance and loads all assets required for the app. 
 	 * When load completes it instantiates the main app and passes the AssetLoader. 

@@ -51,7 +51,6 @@ package com.ogilvy.ihg.map {
 		
 		protected override function configLoaded(signal:LoaderSignal, child:ILoader):void {
 			_asset.type.text = "Data";
-			
 			super.configLoaded(signal, child);
 		}
 		

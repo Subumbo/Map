@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <config>
 	
 	<!-- Change if swfs and additional flash resources are not on server root level -->
-	<item key="root"><![CDATA[]]></item>
+	<item key="root"/>
 	
 	<!-- ISO language and country code  -->
 	<item key="locale"><![CDATA[en_gb]]></item>

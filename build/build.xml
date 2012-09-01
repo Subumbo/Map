@@ -1,33 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="IHG Map" default="bin" basedir="../">
+<project name="IHG Map" default="build" basedir="../">
     
 	<property name="FLEX_HOME" value="/Applications/Adobe Master Collection 5.5/Adobe Flash Builder 4.5/sdks/4.5.0/"/>
-			
+	
+	
+	
 	<taskdef name="mxmlc" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar" classname="flex.ant.MxmlcTask"/>
-	<taskdef name="fla"  classpath="${basedir}/libs/FlaAntTask.jar" classname="shmedia.utils.FlaAntTask"/>
+	<taskdef name="fla"  classpath="${basedir}/build/FlaAntTask.jar" classname="shmedia.utils.FlaAntTask"/>
+	<taskdef name="xmltask" classpath="${basedir}/build/xmltask.jar" classname="com.oopsconsultancy.xmltask.ant.XmlTask"/>
+	<taskdef name="ftp"
+	         classname="org.apache.tools.ant.taskdefs.optional.net.FTP">
+	  <classpath>
+	    <pathelement location="${basedir}/build/ant-commons-net.jar"/>
+	    <pathelement location="${basedir}/build/commons-net.jar"/>
+	  </classpath>
+	</taskdef>
 	
-	<target name="bin" depends="-preloader-release, -main-release">
-		<echo>Release Build Complete</echo>
+	
+	<!-- RELEASE -->
+	
+	<target name="build">
+		<propertyfile file="${basedir}/build/build_info.properties">
+		   	<entry key="build.minor.number" type="int" operation="+" value="1" pattern="0"/>
+		</propertyfile>
+		
+		<property file="${basedir}/build/build_info.properties" />
+		<property name="build.number" value="${build.major.number}.${build.minor.number}"/>
+		<echo>Building Release: v.${build.number} - Locale: ${locale}</echo>
+		<antcall target="-release"/>
 	</target>
 	
-	<target name="release-qa" depends="-preloader-release, -main-release">
-		<echo>Release Build Complete</echo>
+	<target name="-release" depends="-clean, -preloader-release, -main-release, -fla-publish, -copy-resources, -config, -copy-html-template">
+		<echo>Release Build Complete: v.${build.number} - Locale: ${locale}</echo>
 	</target>
 	
 	
 	
-	<target name="-mockup">
-		<copy todir="support/page_mockup">
-	  	    <fileset dir="bin"/>
+	<target name="-clean">
+		<delete>
+			<fileset dir="${basedir}/release" />
+		</delete>
+		<mkdir dir="${basedir}/release/resources/"/>
+	</target>
+	
+	
+	<target name="-copy-html-template">
+		<copy todir="${basedir}/release">
+	  	    <fileset dir="${basedir}/support/html_template"/>
+	  	</copy>
+		<xmltask source="${basedir}/release/index.html" dest="${basedir}/release/index.html">
+			<replace path="html/head/title/text()" withText="IHG Map: v. ${build.number} - Locale: ${locale}"/>
+			<replace path="html/body/div/p[@id='version']/text()" withText="build v. ${build.number}"/>
+		</xmltask>
+	</target>
+	
+	
+	<target name="-copy-resources">
+		<copy todir="${basedir}/release/resources">
+	  	    <fileset dir="${basedir}/bin/resources/"/>
 	  	</copy>
 	</target>
 	
-	
+	<target name="-config">
+		<copy todir="${basedir}/release" file="${basedir}/bin/config.xml" />
+		<xmltask source="${basedir}/release/config.xml" dest="${basedir}/release/config.xml">
+			<replace path="config/item[@key='locale']/text()" withText="${locale}"/>
+		</xmltask>
+	</target>
 	
 	<target name="-fla-publish" description="Use the Task">	
 		<fla folder="${basedir}/support/fla" />
 	</target>
-	  
+	
 	
 	<target name="-preloader-release">
 		<mxmlc 
@@ -67,7 +111,6 @@
 						
 			            <default-size width="960" height="500" />
 			 </mxmlc>
-		</target>
-
+	</target>
 	
 </project>
